@@ -8,8 +8,8 @@ def getFtpPublishProfile(def publishProfilesJson) {
 }
 
 node {
-  withEnv(['AZURE_SUBSCRIPTION_ID= '74dd9e46-35fe-418d-af6c-c96b4add8752',
-        'AZURE_TENANT_ID= 'a7e2019d-9de2-46a0-9061-29c36061d1d6']) {
+  withEnv(['AZURE_SUBSCRIPTION_ID=74dd9e46-35fe-418d-af6c-c96b4add8752',
+           'AZURE_TENANT_ID=a7e2019d-9de2-46a0-9061-29c36061d1d6']) {
     stage('init') {
       checkout scm
     }
@@ -23,7 +23,7 @@ node {
       def webAppName = 'Zelong'
       // login Azure
       withCredentials([usernamePassword(credentialsId: 'AzureServicePrincipal', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')]) {
-       sh '''
+        sh '''
           az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID
           az account set -s $AZURE_SUBSCRIPTION_ID
         '''
